@@ -1,18 +1,20 @@
 <template>
-<section class="cards" v-for="imovel in imoveis" :key="imovel.condo_fee">
-  <article class="card">
-    <picture class="thumbnail">
-         <img class="category__01" src="" alt="" />
-    </picture>
-    <div class="card-content">
-      <div id = "address-title">{{ imovel.address }}</div>
-      <p>{{ imovel.property_type }}  {{ imovel.building }}</p>
-      <p id = "price-title">R$ {{ imovel.asking_price }}</p>
-      <p>{{ imovel.bedrooms }}QT  {{imovel.suites}}ST   {{imovel.parking_spots}}VG</p>
-   </div>
-  </article>
-</section>
 
+<section class="cards">
+                
+    <article class="card" v-for="imovel in imoveis" :key="imovel.condo_fee">
+        <picture>
+            <img src="" alt="">
+        </picture>
+        <div class="container-card">
+            <div id = "address-title">{{ imovel.address }}</div>
+            <p>{{ imovel.property_type }}  {{ imovel.building }}</p>
+            <p id = "price-title">R$ {{ imovel.asking_price }}</p>
+            <p>{{ imovel.bedrooms }}QT  {{imovel.suites}}ST   {{imovel.parking_spots}}VG</p>
+        </div>
+    </article>
+</section>
+           
 </template>
 
 <script>
@@ -51,59 +53,53 @@ export default{
 </script>
 
 <style scoped>
-* {
-  -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+
+.card {
+    background: white; 
+    margin-bottom: 1.25em;
+    -webkit-box-shadow: 0 0px 2px black;
+    box-shadow: 0 0px 2px black;
+    cursor: pointer;
+	flex: 0 1 24%;
 }
 
-img {
-  display: block;
-    border: 0;
-    width: 100%;
-    height: auto;
+.card:hover, .card:focus{
+    background-color: #baa988;
+    color: white
+}
+
+.container-card {
+	padding: 2em 0 2em 0;
 }
 
 .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-  grid-gap: 1rem;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
 }
 
-.card {
-  border: 2px solid #e7e7e7;
-  border-radius: 4px;
-  padding: .5rem;
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  position: relative;
-  color: #5d5e5e;
-} 
-
-#address-title{
-    margin: 2rem 0 .5rem;
-    font-size: 12px;
-    text-align: center;
-}
-
-#price-title, p{
-    margin: 1rem 0 .5rem;
-    font-size: 12px;
-    text-align: center;
+img {
+	display: block;
+	border: 0;
+	width: 100%;
+	height: auto;
 }
 
 #address-title, #price-title{
     font-weight: bold;
 }
 
-.thumbnail img {
-  fill: #c7c4c4;
-  height: 135px;
-  opacity: .25;
-  padding: 0.5rem;
+
+#address-title{
+    margin: 0rem;
+    font-size: 12px;
+    text-align: center;
+}
+
+#price-title, p{
+    margin: 1rem 0 0rem;
+    font-size: 12px;
+    text-align: center;
 }
 
 
