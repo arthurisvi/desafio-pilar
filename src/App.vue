@@ -22,4 +22,11 @@ export default{
     box-sizing: border-box
   }
 
+  .main-container{
+    margin: 30px;
+    min-height: 250px;
+    overflow:auto;
+  }
+
+
 </style>
