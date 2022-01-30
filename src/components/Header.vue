@@ -5,14 +5,15 @@
     </router-link>
 <nav>
     <ul class = "nav-icons">
-        <li>icon1</li>
-        <li>icon2</li>
-        <li>icon3</li>
-        <li>icon4</li>
-        <li>icon5</li>
+        <li><i id = "building" class="fas fa-building"></i></li>
+        <li><i class="fas fa-handshake"></i></li>
+        <li><i class="fas fa-magic"></i></li>
+        <li><i class="fas fa-bell"></i></li>
+        <li><i class="fas fa-cog"></i></li>
     </ul>
 </nav>
 <p class ="name-user">Bem vindo, <span>usuario@gmail.com</span></p>
+<!-- <i class="fas fa-sign-out-alt"></i> -->
 
 </header>
 
@@ -56,6 +57,10 @@
 
     .name-user span{
         font-weight: bold;
+    }
+
+    #building{
+        color:  #baa988;
     }
 
 </style>
