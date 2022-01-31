@@ -6,14 +6,17 @@
 <nav>
     <ul class = "nav-icons">
         <li><i id = "building" class="fas fa-building"></i></li>
-        <li><i class="fas fa-handshake"></i></li>
-        <li><i class="fas fa-magic"></i></li>
-        <li><i class="fas fa-bell"></i></li>
-        <li><i class="fas fa-cog"></i></li>
+        <li><i id = "handshake" class="fas fa-handshake"></i></li>
+        <li><i id = "magic" class="fas fa-magic"></i></li>
+        <li><i id = "bell" class="fas fa-bell"></i></li>
+        <li><i id = "settings" class="fas fa-cog"></i></li>
     </ul>
 </nav>
-<p class ="name-user">Bem vindo, <span>usuario@gmail.com</span></p>
-<!-- <i class="fas fa-sign-out-alt"></i> -->
+<div class ="name-user">
+    <p>Bem vindo,</p>
+    <span>usuario@gmail.com</span>
+    <i id = "logout" class="fas fa-sign-out-alt"></i>
+</div>
 
 </header>
 
@@ -21,24 +24,20 @@
 </template>
 
 <style scoped>
-    *{
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        background-color: #1c333d;
-        color: white
-    }
 
     header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 16px 10%
+        background-color: #1c333d;
+        color: #baa988;
+        padding: 16px 10%;
     }
 
     #logo-url{
         cursor: pointer;
         text-decoration: none;
+        color: #baa988;
     } 
 
     .nav-icons{
@@ -52,15 +51,28 @@
     }
 
     .name-user{
-        font-size: 12px
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        justify-content: space-between;
     }
 
     .name-user span{
         font-weight: bold;
     }
 
-    #building{
-        color:  #baa988;
+    #building, #settings, #handshake, #magic, #bell, #logout{
+        transition: 0.25s;
+        font-size: 22px;
     }
+
+    #building:hover, #settings:hover, #handshake:hover, #magic:hover, #bell:hover, #logout:hover{
+        transform: scale(1.5)
+    }
+
+    #logout{
+        margin-left: 10px
+    }
+
 
 </style>

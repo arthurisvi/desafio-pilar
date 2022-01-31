@@ -66,6 +66,12 @@ export default{
 	flex: 0 1 24%;
 }
 
+@media screen and (max-width: 768px) {
+    .card{
+        flex: 0 1 45%;
+    }
+}
+
 .card:hover, .card:focus{
     background-color: #baa988;
     color: white
