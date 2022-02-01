@@ -41,6 +41,7 @@ export default{
             
         const dataImoveis = await axios.request(options).then( (res ) => {
             const data = res.data
+            console.log(data)
 
             //formatando o preço
             Object.keys(data).forEach((i) =>{
@@ -57,6 +58,11 @@ export default{
                 }
 
                 data[i].asking_price = price
+
+                //mostrar edificio no card caso exista
+                if(data[i].building != undefined || data[i].building != null){
+                    data[i].building =  "-" + " " + data[i].building
+                }
 
             })
             return data
