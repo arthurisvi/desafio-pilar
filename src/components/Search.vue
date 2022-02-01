@@ -29,7 +29,7 @@ export default {
 
     .container-filter{
         width: 50%;
-        margin-bottom: 10px;
+        margin-bottom: 30px;
     }
 
     #search-imovel{ 
@@ -44,9 +44,31 @@ export default {
     #filter-price{ 
         display: inline-block;
         margin: 0 auto;
+        width: 25%;
     }
 
     #select-price, #input-search{
-        height: 30px;
+        height: 35px;
+    }
+
+    @media screen and (max-width: 768px) {
+    .container-filter{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    #select-price{
+        margin-left: 12.5px;
+    }
+    
+    #input-search{
+        width: 88%
+    }
+
+}
+
+    #select-price{
+        width: 100%;
+        border-radius: 5px
     }
 </style>
