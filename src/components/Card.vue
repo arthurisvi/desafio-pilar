@@ -40,12 +40,28 @@ export default{
             }
             
         const dataImoveis = await axios.request(options).then( (res ) => {
-
             const data = res.data
-            
-            return data 
-        })        
 
+            //formatando o preço
+            Object.keys(data).forEach((i) =>{
+
+                var price = data[i].asking_price.toString()
+                var priceSplit = ""
+ 
+                if(price.length === 6){
+                    priceSplit = price.match(/.{1,3}/g)
+                    price = priceSplit[0] + "." + priceSplit[1]
+                }else if(price.length === 7){
+                    priceSplit = price.match(/.{1,4}/g)
+                    price = priceSplit[0].substr(0, 1) + "." + priceSplit[0].substr(1, 3) + "." + priceSplit[1]
+                }
+
+                data[i].asking_price = price
+
+            })
+            return data
+        })
+        
         this.imoveis = dataImoveis
         }
 
