@@ -4,9 +4,7 @@
                 
     <article class="card" v-for="imovel in imoveis" :key="imovel.condo_fee">
             <div class = "container-img">
-            <!-- <img src="https://uploaddeimagens.com.br/images/003/698/391/full/imovel.png?1643557971" alt=""> -->
-            <!-- <img src="https://uploaddeimagens.com.br/images/003/698/394/full/imovel.png?1643558193" alt=""> -->
-            <img src="https://uploaddeimagens.com.br/images/003/698/398/full/imovel.png?1643558712" alt="imovel">
+            <img :src="imovel.picture" alt="imovel">
             </div>
         <div class="container-card">
             <div id = "address-title">{{ imovel.address }}</div>
@@ -26,7 +24,8 @@ export default{
     name: "Card",
     data(){
         return{
-            imoveis: null
+            imoveis: null,
+            picture: ""
         }
     },
     mounted(){
@@ -41,7 +40,6 @@ export default{
             
         const dataImoveis = await axios.request(options).then( (res ) => {
             const data = res.data
-            console.log(data)
 
             //formatando o preço
             Object.keys(data).forEach((i) =>{
@@ -59,14 +57,34 @@ export default{
 
                 data[i].asking_price = price
 
-                //mostrar edificio no card caso exista
+                //mostrar nome do edificio no card caso exista
                 if(data[i].building != undefined || data[i].building != null){
                     data[i].building =  "-" + " " + data[i].building
                 }
 
             })
-            return data
+
+            //fazendo copia do objeto e adicionando novo atributo picture
+            const newData = data.map(data =>{
+                return {... data, picture: ""}
+            })
+
+            return newData
         })
+
+
+        //mapeando imagens de acordo com o tipo do imovel
+        Object.keys(dataImoveis).forEach((i) =>{
+
+            if(dataImoveis[i].property_type === 'Apartamento' || dataImoveis[i].property_type === 'Cobertura'){
+                dataImoveis[i].picture = "https://uploaddeimagens.com.br/images/003/701/304/full/edificio.png?1643739307"
+            }else if (dataImoveis[i].property_type === 'Casa de Condomínio'){
+                 dataImoveis[i].picture = "https://uploaddeimagens.com.br/images/003/701/336/full/imovel.png?1643740111"
+            }else if (dataImoveis[i].property_type === 'Casa'){
+                dataImoveis[i].picture = "https://uploaddeimagens.com.br/images/003/701/327/full/casa.png?1643739984"
+            }
+        })
+
         
         this.imoveis = dataImoveis
         }
