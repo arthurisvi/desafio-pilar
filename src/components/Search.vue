@@ -7,9 +7,8 @@
 
     <div id = "filter-price">
                 <select id = "select-price" v-model="selected">
-                    <option selected>Filtrar por preço</option>
-                    <option value = 1>Mais caros</option>
-                    <option value = 0>Mais baratos</option>
+                    <option value="" selected disabled>Filtrar por preço</option>
+                    <option v-for= "filter in filtersPrice" :value="filter" :key="filter">{{ filter }}</option>
                 </select>
     </div>
 
@@ -21,14 +20,20 @@
 <script>
 
 export default {
-    name: 'Search'
+    name: 'Search',
+    data() {
+        return{
+            filtersPrice: ["Mais baratos", "Mais caros"],
+            selected: "Filtrar por preço"
+        }
+    }
 }
 </script>
 
 <style scoped>
 
     .container-filter{
-        width: 50%;
+        width: 100%;
         margin-bottom: 30px;
     }
 
@@ -38,17 +43,17 @@ export default {
     }
 
     #input-search{
-        width: 95%
+        width: 97.25%
     }
 
     #filter-price{ 
         display: inline-block;
         margin: 0 auto;
-        width: 25%;
+        width: 23.75%;
     }
 
     #select-price, #input-search{
-        height: 35px;
+        height: 37px;
     }
 
     @media screen and (max-width: 768px) {
@@ -57,8 +62,14 @@ export default {
         margin-bottom: 30px;
     }
 
+    #filter-price{ 
+        display: inline-block;
+        margin: 0 auto;
+        width: 45%;
+    }
+
     #select-price{
-        margin-left: 12.5px;
+        margin-left: 12.25px;
     }
     
     #input-search{
