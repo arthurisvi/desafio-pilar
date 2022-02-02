@@ -18,7 +18,7 @@
 
 <section class="cards">
                 
-    <article class="card" v-for="imovel in imoveisFiltered" :key="imovel.address">
+    <article class="card" v-for="(imovel, index) in imoveisFiltered" :key="index">
             <div class = "container-img">
             <img :src="imovel.picture" alt="imovel">
             </div>
@@ -72,7 +72,35 @@ export default{
                         address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
                     )
                 })
+
+
+                //filtrar por preço
+                response = response.filter((imovel) =>{
+ 
+                    if(this.selected === "Filtrar por preço") {return imovel}
+                    
+                    if(this.selected === "Mais baratos"){
+                        
+                        return response.sort(function (a, b){
+                            let previous = a.asking_price.replace(/[^\d]+/g,'')
+                            let next = b.asking_price.replace(/[^\d]+/g,'')
+
+                            return (parseInt(previous) < parseInt(next)) ? -1 : (( parseInt(previous) > parseInt(next)) ? 1 : 0)
+                        })
+                    }
+                    else if(this.selected === "Mais caros"){
+                        return response.sort(function (a, b){
+
+                            let previous = a.asking_price.replace(/[^\d]+/g,'')
+                            let  next = b.asking_price.replace(/[^\d]+/g,'')
+
+                            return (parseInt(previous) > parseInt(next)) ? -1 : ((parseInt(previous) < parseInt(next)) ? 1 : 0)
+                        })
+                    }
+                })
             }
+
+            console.log(response)
 
             return response
         }
