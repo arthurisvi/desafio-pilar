@@ -2,8 +2,9 @@
 
 <div class = "container-filter">
 
-    <div class="input-search" id = "search-imovel">
+    <div id = "search-imovel">
                 <input id = "input-search" type="text" placeholder="Pesquise aqui" v-model="search">
+                <button><i id ="icon-search" class="fas fa-search"></i></button>
     </div>
 
     <div id = "filter-price">
@@ -59,12 +60,11 @@ export default{
         
                 response = this.imoveis.filter((imovel) =>{
 
-                    //  if(imovel.building !== undefined){
-                    //         console.log(imovel.building)
-                    //         let building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
-                    //         return (
-                    //             building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
-                    //         )
+                    // if(imovel.building !== undefined){
+                    //     let building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
+                    //     return (
+                    //         building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
+                    //     )
                     // }
 
                     let address = imovel.address.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
@@ -161,6 +161,13 @@ export default{
 
 <style scoped>
 
+input:focus{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+} 
+
+/* ###################### CARDS #################### */
 .card {
     border: 0.5px solid #1c333d;
     background: white; 
@@ -229,31 +236,56 @@ img {
     text-align: center;
 }
 
+/* ###################### END- CARDS #################### */
+
+
+/* ###################### FILTERS #################### */
 .container-filter{
-        width: 100%;
-        margin-bottom: 30px;
-    }
+    width: 100%;
+    margin-bottom: 30px;
+}
 
-    #search-imovel{ 
-        float: left;
-        width: 50.75%;
-    }
+#search-imovel{ 
+    float: left;
+    width: 49.25%;
+    height: 36.25px;
+    border: 1px solid #1c333d;
+}
 
-    #input-search{
-        width: 97.25%
-    }
+#input-search{
+    float: left;
+    padding: 10px;
+    width: 90%;
+    border: none;
+}
 
-    #filter-price{ 
-        display: inline-block;
-        margin: 0 auto;
-        width: 23.75%;
-    }
+#search-imovel button{
+    float: left;
+    width: 7.25%;
+    border: none;
+    background: transparent;
+    height: 35px;
+}
 
-    #select-price, #input-search{
-        height: 37px;
-    }
+#filter-price{ 
+    display: inline-block;
+    margin: 0 auto;
+    width: 23.75%;
+}
 
-    @media screen and (max-width: 768px) {
+#select-price, #input-search{
+    height: 35px;
+}
+
+#select-price{
+    margin-left: 17px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px #1c333d solid
+}
+
+/*## RESPONSIVIDADE MOBILE ## */
+@media screen and (max-width: 768px) {
     .container-filter{
         width: 100%;
         margin-bottom: 30px;
@@ -266,19 +298,29 @@ img {
     }
 
     #select-price{
-        margin-left: 12.25px;
+        margin-left: 32.5px;
+    }
+
+    #search-imovel{ 
+    float: left;
+    width: 45%;
+    height: 36.25px;
+    border: 1px solid #1c333d;
     }
     
     #input-search{
-        width: 88%
+        width: 80%;
+        border:none
+    }
+
+    #search-imovel button{
+    float: left;
+    width: 8%;
+    border: none;
+    background: transparent;
+    height: 35px;
     }
 
 }
-
-    #select-price{
-        width: 100%;
-        border-radius: 5px
-    }
-
 
 </style>
