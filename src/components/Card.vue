@@ -1,8 +1,24 @@
 <template>
 
+<div class = "container-filter">
+
+    <div class="input-search" id = "search-imovel">
+                <input id = "input-search" type="text" placeholder="Pesquise aqui" v-model="search">
+    </div>
+
+    <div id = "filter-price">
+                <select id = "select-price" v-model="selected">
+                    <option value="" selected disabled>Filtrar por preço</option>
+                    <option v-for= "filter in filtersPrice" :value="filter" :key="filter">{{ filter }}</option>
+                </select>
+    </div>
+
+
+</div>
+
 <section class="cards">
                 
-    <article class="card" v-for="imovel in imoveis" :key="imovel.condo_fee">
+    <article class="card" v-for="imovel in imoveisFiltered" :key="imovel.address">
             <div class = "container-img">
             <img :src="imovel.picture" alt="imovel">
             </div>
@@ -25,11 +41,41 @@ export default{
     data(){
         return{
             imoveis: null,
-            picture: ""
+            picture: "",
+            search: "",
+            filtersPrice: ["Mais baratos", "Mais caros"],
+            selected: "Filtrar por preço"
         }
     },
     mounted(){
         this.getImoveis()
+    },
+    computed:{
+        imoveisFiltered(){
+            var response = this.imoveis
+
+            //filtro por endereço do imóvel e nome do edifício
+            if (this.imoveis){
+        
+                response = this.imoveis.filter((imovel) =>{
+
+                    //  if(imovel.building !== undefined){
+                    //         console.log(imovel.building)
+                    //         let building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
+                    //         return (
+                    //             building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
+                    //         )
+                    // }
+
+                    let address = imovel.address.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
+                    return (
+                        address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
+                    )
+                })
+            }
+
+            return response
+        }
     },
     methods:{
         async getImoveis(){
@@ -163,6 +209,57 @@ img {
     font-size: 12px;
     text-align: center;
 }
+
+.container-filter{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    #search-imovel{ 
+        float: left;
+        width: 50.75%;
+    }
+
+    #input-search{
+        width: 97.25%
+    }
+
+    #filter-price{ 
+        display: inline-block;
+        margin: 0 auto;
+        width: 23.75%;
+    }
+
+    #select-price, #input-search{
+        height: 37px;
+    }
+
+    @media screen and (max-width: 768px) {
+    .container-filter{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    #filter-price{ 
+        display: inline-block;
+        margin: 0 auto;
+        width: 45%;
+    }
+
+    #select-price{
+        margin-left: 12.25px;
+    }
+    
+    #input-search{
+        width: 88%
+    }
+
+}
+
+    #select-price{
+        width: 100%;
+        border-radius: 5px
+    }
 
 
 </style>
