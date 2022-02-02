@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <Search/>
+    <!-- <Search/> -->
     <Card/> 
   </div>
 </template>
