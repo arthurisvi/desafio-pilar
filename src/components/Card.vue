@@ -73,34 +73,25 @@ export default{
                     )
                 })
 
-
                 //filtrar por preço
-                response = response.filter((imovel) =>{
- 
-                    if(this.selected === "Filtrar por preço") {return imovel}
-                    
                     if(this.selected === "Mais baratos"){
-                        
-                        return response.sort(function (a, b){
+                    response = response.sort(function (a, b){
                             let previous = a.asking_price.replace(/[^\d]+/g,'')
                             let next = b.asking_price.replace(/[^\d]+/g,'')
 
                             return (parseInt(previous) < parseInt(next)) ? -1 : (( parseInt(previous) > parseInt(next)) ? 1 : 0)
-                        })
-                    }
-                    else if(this.selected === "Mais caros"){
-                        return response.sort(function (a, b){
+                    })
+                    }else if (this.selected === "Mais caros"){
+                        
+                        response = response.sort(function (a, b){
 
                             let previous = a.asking_price.replace(/[^\d]+/g,'')
-                            let  next = b.asking_price.replace(/[^\d]+/g,'')
+                            let next = b.asking_price.replace(/[^\d]+/g,'')
 
                             return (parseInt(previous) > parseInt(next)) ? -1 : ((parseInt(previous) < parseInt(next)) ? 1 : 0)
                         })
-                    }
-                })
+                }
             }
-
-            console.log(response)
 
             return response
         }
