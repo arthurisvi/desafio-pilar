@@ -60,18 +60,15 @@ export default{
             if (this.imoveis){
         
                 response = this.imoveis.filter((imovel) =>{
-
-                    // if(imovel.building !== undefined){
-                    //     let building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
-                    //     return (
-                    //         building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
-                    //     )
-                    // }
-
-                    let address = imovel.address.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
-                    return (
-                        address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1
-                    )
+                    var address = imovel.address.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
+                    
+                    if(imovel.building){
+                        let building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
+                        return (building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1 
+                        || address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1)
+                    }else{
+                    return (address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1 )
+                    }
                 })
 
                 //filtrar por preço
@@ -124,7 +121,7 @@ export default{
                 data[i].asking_price = price
 
                 //mostrar nome do edificio no card caso exista
-                if(data[i].building != undefined || data[i].building != null){
+                if(data[i].building){
                     data[i].building =  "-" + " " + data[i].building
                 }
 
