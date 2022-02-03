@@ -1,6 +1,6 @@
 <template>
 <header>
-    <router-link to = "/" id = "logo-url">
+        <router-link to = "/" id = "logo-url">
         <h3>Blintz</h3>
     </router-link>
 <nav>
@@ -18,6 +18,16 @@
     <i id = "logout" class="fas fa-sign-out-alt"></i>
 </div>
 
+<div class = "container-hamburger">
+<input id="menu-hamburguer" type="checkbox" />
+  <label for="menu-hamburguer">
+    <div class="menu">
+      <span class="hamburguer"></span>
+    </div>
+  </label>
+
+</div>
+
 </header>
 
 
@@ -32,6 +42,10 @@
         background-color: #1c333d;
         color: #baa988;
         padding: 16px 10%;
+    }
+
+     .container-hamburger{
+        display: none
     }
 
     #logo-url{
@@ -61,18 +75,90 @@
         font-weight: bold;
     }
 
-    #building, #settings, #handshake, #magic, #bell, #logout{
+    #building, #settings, #handshake, #magic, #bell{
         transition: 0.25s;
         font-size: 22px;
     }
 
-    #building:hover, #settings:hover, #handshake:hover, #magic:hover, #bell:hover, #logout:hover{
+    #building:hover, #settings:hover, #handshake:hover, #magic:hover, #bell:hover{
         transform: scale(1.5)
     }
 
     #logout{
+        cursor: pointer;
+        font-size: 22px;
         margin-left: 10px
     }
+
+@media screen and (max-width: 709px) {
+    .container-hamburger{
+        display: block
+    }
+
+    #building, #settings, #handshake, #magic, #bell, #logout{
+        display: none
+    }
+
+    .name-user{
+        display: none;
+    }
+    
+    .menu {
+    width: 60px;
+    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    }
+
+    .hamburguer {
+    position: relative;
+    display: block;
+    background: #baa988;
+    width: 30px;
+    height: 2px;
+    top: 29px;
+    left: 15px;
+    transition: 0.5s ease-in-out;
+    }
+
+    .hamburguer:before,
+    .hamburguer:after {
+    background: #baa988;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: 0.5s ease-in-out;
+    }
+
+    .hamburguer:before {
+    top: -10px;
+    }
+
+    .hamburguer:after {
+    bottom: -10px;
+    }
+
+    input {
+    display: none;
+    }
+
+    input:checked ~ label .hamburguer {
+    transform: rotate(45deg);
+    }
+
+    input:checked ~ label .hamburguer:before {
+    transform: rotate(90deg);
+    top: 0;
+    }
+
+    input:checked ~ label .hamburguer:after {
+    transform: rotate(90deg);
+    bottom: 0;
+    }
+
+}
 
 
 </style>
