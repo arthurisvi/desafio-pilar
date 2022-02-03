@@ -18,7 +18,7 @@
 </div>
 
 <section class="cards">
-                
+
     <article class="card" v-for="(imovel, index) in imoveisFiltered" :key="index">
             <div class = "container-img">
             <img :src="imovel.picture" alt="imovel">
@@ -30,6 +30,7 @@
             <p>{{ imovel.bedrooms }}QT  {{imovel.suites}}ST   {{imovel.parking_spots}}VG</p>
         </div>
     </article>
+
 </section>
            
 </template>
@@ -178,12 +179,6 @@ input:focus{
 	flex: 0 1 24%;
 }
 
-@media screen and (max-width: 768px) {
-    .card{
-        flex: 0 1 45%;
-    }
-}
-
 .card:hover, .card:focus{
     background-color: #baa988;
     color: white
@@ -286,41 +281,48 @@ img {
 
 /*## RESPONSIVIDADE MOBILE ## */
 @media screen and (max-width: 768px) {
+    .card{
+        flex: 0 1 45%;
+    }
+
     .container-filter{
         width: 100%;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 
     #filter-price{ 
-        display: inline-block;
-        margin: 0 auto;
-        width: 45%;
+        display: flex;
+        align-items: flex-end;
+        width: 50%;
+        padding: 20px;
     }
 
     #select-price{
-        margin-left: 32.5px;
+        width: 100%
     }
 
     #search-imovel{ 
-    float: left;
-    width: 45%;
-    height: 36.25px;
-    border: 1px solid #1c333d;
+        display: flex;
+        align-items: flex-start;
+        width: 50%;
+        height: 36.25px;
+        padding: 20px;
+        border: none
     }
-    
     #input-search{
-        width: 80%;
-        border:none
+        width: 95.5%;
+        border: 1px #1c333d solid
     }
 
     #search-imovel button{
-    float: left;
+        display: none
+    /* float: left;
     width: 8%;
     border: none;
     background: transparent;
-    height: 35px;
+    height: 35px; */
     }
-
+    
 }
 
 </style>
