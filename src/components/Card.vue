@@ -1,7 +1,6 @@
 <template>
 
 <div class = "container-filter">
-
     <div id = "search-imovel">
                 <input id = "input-search" type="text" placeholder="Pesquise aqui" v-model="search">
                 <button><i id ="icon-search" class="fas fa-search"></i></button>
@@ -13,24 +12,22 @@
                     <option v-for= "filter in filtersPrice" :value="filter" :key="filter">{{ filter }}</option>
                 </select>
     </div>
-
-
 </div>
 
 <section class="cards">
-
     <article class="card" v-for="(imovel, index) in imoveisFiltered" :key="index">
             <div class = "container-img">
             <img :src="imovel.picture" alt="imovel">
             </div>
+
         <div class="container-card">
             <div id = "address-title">{{ imovel.address }}</div>
             <p>{{ imovel.property_type }}  {{ imovel.building }}</p>
             <p id = "price-title">R$ {{ imovel.asking_price }}</p>
             <p>{{ imovel.bedrooms }}QT  {{imovel.suites}}ST   {{imovel.parking_spots}}VG</p>
         </div>
-    </article>
 
+    </article>
 </section>
            
 </template>
@@ -56,38 +53,24 @@ export default{
         imoveisFiltered(){
             var response = this.imoveis
 
-            //filtro por endereço do imóvel e nome do edifício
             if (this.imoveis){
-        
+                //filtro por endereço do imóvel e nome do edifício
                 response = this.imoveis.filter((imovel) =>{
                     var address = imovel.address.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
                     
                     if(imovel.building){
-                        let building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
-                        return (building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1 
-                        || address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1)
+                        var building = imovel.building.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()
+                        return this.filterByAddressAndBuilding(address, building, true)
                     }else{
-                    return (address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1 )
+                        return this.filterByAddressAndBuilding(address, building, false)
                     }
                 })
 
                 //filtrar por preço
-                    if(this.selected === "Mais baratos"){
-                    response = response.sort(function (a, b){
-                            let previous = a.asking_price.replace(/[^\d]+/g,'')
-                            let next = b.asking_price.replace(/[^\d]+/g,'')
-
-                            return (parseInt(previous) < parseInt(next)) ? -1 : (( parseInt(previous) > parseInt(next)) ? 1 : 0)
-                    })
-                    }else if (this.selected === "Mais caros"){
-                        
-                        response = response.sort(function (a, b){
-
-                            let previous = a.asking_price.replace(/[^\d]+/g,'')
-                            let next = b.asking_price.replace(/[^\d]+/g,'')
-
-                            return (parseInt(previous) > parseInt(next)) ? -1 : ((parseInt(previous) < parseInt(next)) ? 1 : 0)
-                        })
+                if(this.selected === "Mais baratos"){
+                   response = this.filterByPrice(response, true)
+                }else if (this.selected === "Mais caros"){
+                    response = this.filterByPrice(response, false)
                 }
             }
 
@@ -103,8 +86,46 @@ export default{
             
         const dataImoveis = await axios.request(options).then( (res ) => {
             const data = res.data
-
             //formatando o preço
+            this.formatPrice(data)
+            //fazendo copia do objeto e adicionando novo atributo picture
+            const newData = this.addPicture(data)
+
+            return newData
+        })
+
+        //mapeando imagens de acordo com o tipo do imovel
+        this.mapPicture(dataImoveis)
+
+        this.imoveis = dataImoveis
+        },
+
+        filterByAddressAndBuilding(address, building, hasBuilding){
+
+            if (hasBuilding){
+                return (building.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1 
+                || address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1)
+            }else{
+                return (address.indexOf(this.search.normalize("NFD").replace(/[^a-zA-Zs]/g, "").toLowerCase()) > -1 )
+            }
+        },
+
+        filterByPrice(res, order){
+
+            res = res.sort(function (a, b){
+
+                let previous = a.asking_price.replace(/[^\d]+/g,'')
+                let next = b.asking_price.replace(/[^\d]+/g,'')
+
+                if (order) return (parseInt(previous) < parseInt(next)) ? -1 : (( parseInt(previous) > parseInt(next)) ? 1 : 0)
+                else return (parseInt(previous) > parseInt(next)) ? -1 : ((parseInt(previous) < parseInt(next)) ? 1 : 0)
+            })
+
+            return res
+        },
+
+        formatPrice(data){
+
             Object.keys(data).forEach((i) =>{
 
                 var price = data[i].asking_price.toString()
@@ -127,17 +148,20 @@ export default{
 
             })
 
-            //fazendo copia do objeto e adicionando novo atributo picture
+        },
+
+        addPicture(data){
+            
             const newData = data.map(data =>{
                 return {... data, picture: ""}
             })
 
             return newData
-        })
+        },
 
+        mapPicture(dataImoveis){
 
-        //mapeando imagens de acordo com o tipo do imovel
-        Object.keys(dataImoveis).forEach((i) =>{
+            Object.keys(dataImoveis).forEach((i) =>{
 
             if(dataImoveis[i].property_type === 'Apartamento' || dataImoveis[i].property_type === 'Cobertura'){
                 dataImoveis[i].picture = "https://uploaddeimagens.com.br/images/003/701/304/full/edificio.png?1643739307"
@@ -148,8 +172,6 @@ export default{
             }
         })
 
-        
-        this.imoveis = dataImoveis
         }
 
     }
@@ -215,7 +237,6 @@ img {
     font-size: 12px;
 }
 
-
 #address-title{
     margin: 0rem;
     font-size: 12px;
@@ -257,6 +278,7 @@ img {
     border: none;
     background: transparent;
     height: 35px;
+    outline: 0;
 }
 
 #filter-price{ 
@@ -313,11 +335,6 @@ img {
 
     #search-imovel button{
         display: none
-    /* float: left;
-    width: 8%;
-    border: none;
-    background: transparent;
-    height: 35px; */
     }
     
 }
