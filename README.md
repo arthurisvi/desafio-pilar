@@ -1,4 +1,6 @@
-# desafio-pilar
+# Desafio Pilar
+
+Case de desafio frontend em Vue.js para vaga na empresa Pilar.
 
 ## Project setup
 ```
@@ -13,6 +15,16 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
+```
+
+### Documentation setup
+```
+npm run storybook
+```
+
+### Tests setup
+```
+npm run test:watch
 ```
 
 ### Customize configuration
