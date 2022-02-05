@@ -1,0 +1,21 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Introduction" />
+
+# Case Front-end
+
+## Case de desafio frontend em Vue.js para vaga na empresa Pilar.
+
+O case a seguir tem como objetivo avaliar suas habilidades como desenvolvedor frontend, dentre as quais estão qualidade de código, documentação, deploy de versão demo (via Vercel ou Netlify) e testes unitários se houver tempo.
+
+Com base neste [wireframe](https://wireframe.cc/2N95a6) construa uma aplicação Vue.js -- preferencialmente sem utilização de muitos frameworks adicionais, mantendo o código mais simples possível.
+
+- A barra de navegação não precisa de funcionalidade, basta a parte visual.
+
+- Os cards de imóveis devem mostrar endereço (address), tipo de imóvel (property_type), nome do edifício (building, caso haja), valor de venda (asking_price), número de quartos (bedrooms), suítes (suites) e vagas de garagem (parking_spots).
+
+- O campo de busca deve filtrar os imóveis por endereço, cidade e nome do edifício (caso haja). A busca deve ignorar a caixa do texto e acentos (ex: "Consolação" e "consolacao" devem trazer os mesmos resultados).
+
+- O select de ordenação deve ter as opções "Mais caros", "Mais baratos" (baseadas no campo asking_price).
+
+- As propriedades podem ser obtidas através de uma requisição [GET] para https://development-api.blintz.com.br/properties
