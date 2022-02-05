@@ -17,12 +17,12 @@ npm run serve
 npm run build
 ```
 
-### Documentation setup
+### Compiles and hot-reloads for documentation with Storybook
 ```
 npm run storybook
 ```
 
-### Tests setup
+### Compiles and hot-reloads for tests with Jest
 ```
 npm run test:watch
 ```
