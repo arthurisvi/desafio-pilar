@@ -1,11 +1,8 @@
 import Card from "../components/Card.vue";
 
 export default {
-    title: "Card",
+    title: "Components/Card",
     component: { Card },
-    argTypes: {
-        backgroundColor: { control: "color" },
-    },
 };
 
 const Template = (args) => ({
@@ -19,11 +16,11 @@ const Template = (args) => ({
     template: '<card v-bind="args" />',
 });
 
-export const Rounded = Template.bind({});
-Rounded.args = {
-    title: "Card",
-    rounded: true,
-};
+// export const Rounded = Template.bind({});
+// Rounded.args = {
+//     title: "Card",
+//     rounded: true,
+// };
 
 export const Normal = Template.bind({});
 Normal.args = {
